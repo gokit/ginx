@@ -1,2 +1,2 @@
 # ginx
-util for gin
+util for echo
