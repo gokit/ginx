@@ -15,14 +15,13 @@ require (
 	github.com/gorilla/sessions v1.2.1
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/kidstuff/mongostore v0.0.0-20181113001930-e650cd85ee4b
-	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/memcachier/mc v2.0.1+incompatible
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
+	github.com/pkg/errors v0.9.1
 	github.com/quasoft/memstore v0.0.0-20191010062613-2bce066d2b0b
 	github.com/ugorji/go v1.2.0 // indirect
 	golang.org/x/crypto v0.0.0-20201117144127-c1f2f97bffc9 // indirect
-	golang.org/x/net v0.0.0-20201009032441-dbdefad45b89 // indirect
 	golang.org/x/sys v0.0.0-20201117222635-ba5294a509c7 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect

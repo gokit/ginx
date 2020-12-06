@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/context"
 	"github.com/gorilla/sessions"
+	"github.com/pkg/errors"
 	"log"
 	"net/http"
 )
@@ -60,7 +61,7 @@ func Sessions(name string, store Store) gin.HandlerFunc {
 		// Save except cookie store
 		err := s.Save()
 		if err != nil {
-			log.Printf(errorFormat, err)
+			c.Error(errors.WithMessagef(err, "session %s save error", name))
 		}
 	}
 }
@@ -75,7 +76,7 @@ func SessionsByContext(name string, store Store) gin.HandlerFunc {
 		// Save except cookie store
 		err := s.Save()
 		if err != nil {
-			log.Printf(errorFormat, err)
+			c.Error(errors.WithMessagef(err, "session %s save error", name))
 		}
 	}
 }
@@ -94,7 +95,7 @@ func SessionsMany(names []string, store Store) gin.HandlerFunc {
 		for _, name := range names {
 			err := sessions[name].Save()
 			if err != nil {
-				log.Printf(errorFormat, err)
+				c.Error(errors.WithMessagef(err, "session %s save error", name))
 			}
 		}
 	}
@@ -114,7 +115,7 @@ func SessionsManyByContext(names []string, store Store) gin.HandlerFunc {
 		for _, name := range names {
 			err := sessions[name].Save()
 			if err != nil {
-				log.Printf(errorFormat, err)
+				c.Error(errors.WithMessagef(err, "session %s save error", name))
 			}
 		}
 	}
@@ -193,7 +194,11 @@ func (s *session) Session() *sessions.Session {
 		var err error
 		s.session, err = s.store.Get(s.request, s.name)
 		if err != nil {
-			log.Printf(errorFormat, err)
+			if s.session == nil {
+				panic(errors.WithMessagef(err, "store get session %s error", s.name))
+			} else {
+				log.Printf(errorFormat, err)
+			}
 		} else if s.session.IsNew {
 			// Save if session is new before write response
 			s.Save()
